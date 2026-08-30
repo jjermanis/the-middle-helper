@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Middle Helper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EAE6DA;
+    --card: #F6F3E9;
+    --ink: #24221D;
+    --ink-soft: #5B5648;
+    --rule: #D3CDB9;
+    --accent: #7A2E2E;
+    --accent-soft: #E8D9D3;
+    --good: #35603F;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Spectral', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  header{
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+  }
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 6px;
+    text-transform: uppercase;
+  }
+  h1{
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+  .tagline{
+    margin: 0;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 15px;
+  }
+  .panel{
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .panel-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .panel-header h2{ margin: 0; }
+  .panel h2{
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    margin: 0 0 18px;
+    color: var(--ink-soft);
+  }
+  form{ display: flex; flex-direction: column; gap: 14px; }
+  label{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  input, select{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    padding: 9px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+  }
+  input:focus, select:focus, button:focus{
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .field-row{
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .field-row label{ flex: 1; }
+  button{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 16px;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  button:hover{ opacity: 0.9; }
+  button.secondary{
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  button.small{
+    padding: 7px 12px;
+    font-size: 11px;
+    align-self: auto;
+  }
+  .message{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 14px;
+  }
+  .guide-words{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    letter-spacing: 0.02em;
+  }
+  .guess-word{
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px dashed var(--accent);
+    border-radius: 3px;
+    text-align: center;
+  }
+  #result-output{
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  #result-output strong{ color: var(--good); }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  th, td{
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  th{
+    color: var(--ink-soft);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+  td.del{
+    text-align: right;
+  }
+  td.del button{
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+  .empty-row td{
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Spectral', serif;
+  }
+  .share-row{
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .share-row .word-field{ flex: 3; }
+  .share-row .dist-field{ flex: 1; }
+  .share-row .row-number{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    width: 20px;
+    padding-bottom: 9px;
+  }
+  #share-rows{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="eyebrow">Work in progress</p>
+    <h1>The Middle Helper</h1>
+    <p class="tagline">Guide words for a puzzle played one bound at a time.</p>
+  </header>
+
+  <section class="panel" id="setup-panel">
+    <h2>Start a round</h2>
+    <form id="setup-form">
+      <label>Top word (given)
+        <input id="top-word" type="text" autocomplete="off" required>
+      </label>
+      <label>Bottom word (given)
+        <input id="bottom-word" type="text" autocomplete="off" required>
+      </label>
+      <button type="submit">Find a guess</button>
+    </form>
+    <p class="message" id="setup-message" hidden></p>
+  </section>
+
+  <section class="panel" id="guess-panel" hidden>
+    <h2>Current guess</h2>
+    <p class="guide-words" id="guide-words"></p>
+    <p class="guess-word" id="guess-word-display"></p>
+
+    <form id="result-form">
+      <div class="field-row">
+        <label>Words away
+          <input id="distance-input" type="number" min="0" step="1" required>
+        </label>
+        <label>Direction
+          <select id="direction-select">
+            <option value="before">words before</option>
+            <option value="after">words after</option>
+          </select>
+        </label>
+      </div>
+      <button type="submit">Enter</button>
+    </form>
+
+    <div id="result-output" hidden>
+      <p>The ID for this game is <strong id="target-id-display"></strong>.</p>
+      <p>Best available guess is <strong id="best-guess-display"></strong>.</p>
+    </div>
+
+    <p style="margin-top:18px;">
+      <button type="button" class="secondary" id="reset-btn">Start new round</button>
+    </p>
+  </section>
+
+  <section class="panel" id="share-panel" hidden>
+    <h2>Share your results</h2>
+    <p class="guide-words">Play the round out in the game, then enter all ten guesses and how far each one landed from the answer (negative = before, positive = after, 0 = correct).</p>
+    <form id="share-form">
+      <div id="share-rows"></div>
+      <button type="submit">Save results to database</button>
+    </form>
+    <p class="message" id="share-message" hidden></p>
+  </section>
+
+  <section class="panel" id="db-panel">
+    <div class="panel-header">
+      <h2>Known words</h2>
+      <button type="button" class="secondary small" id="download-btn">Download database</button>
+    </div>
+    <table>
+      <thead><tr><th>ID</th><th>Word</th><th></th></tr></thead>
+      <tbody id="db-body"></tbody>
+    </table>
+    <form id="add-form">
+      <div class="field-row">
+        <label>ID
+          <input id="add-id" type="number" required>
+        </label>
+        <label>Word
+          <input id="add-word" type="text" autocomplete="off" required>
+        </label>
+      </div>
+      <button type="submit">Add to database</button>
+    </form>
+  </section>
+
+</div>
+
+<script>
+let database = [
+    { id: 86273, word: "beat" },
+    { id: 88182, word: "beside" },
+    { id: 96273, word: "brain" },
+    { id: 97845, word: "brown" },
+    { id: 98164, word: "buck" },
+    { id: 98182, word: "bucket" },
+    { id: 98260, word: "bud" },
+    { id: 99620, word: "butter" },
+    { id: 100000, word: "cable" },
+    { id: 106273, word: "category" },
+    { id: 108182, word: "chalk" },
+    { id: 116005, word: "coin" },
+    { id: 120000, word: "concert" },
+    { id: 125987, word: "crazy" },
+    { id: 125994, word: "creak" },
+    { id: 126005, word: "cream" },
+    { id: 126045, word: "create" },
+    { id: 127389, word: "crunch" },
+    { id: 128374, word: "cure" },
+    { id: 136005, word: "dentist" }
+  ];
+
+  let currentGuess = null;
+  let currentTargetId = null;
+
+  const setupForm = document.getElementById('setup-form');
+  const topWordInput = document.getElementById('top-word');
+  const bottomWordInput = document.getElementById('bottom-word');
+  const setupMessage = document.getElementById('setup-message');
+
+  const guessPanel = document.getElementById('guess-panel');
+  const guideWords = document.getElementById('guide-words');
+  const guessWordDisplay = document.getElementById('guess-word-display');
+  const resultForm = document.getElementById('result-form');
+  const distanceInput = document.getElementById('distance-input');
+  const directionSelect = document.getElementById('direction-select');
+  const resultOutput = document.getElementById('result-output');
+  const targetIdDisplay = document.getElementById('target-id-display');
+  const bestGuessDisplay = document.getElementById('best-guess-display');
+  const resetBtn = document.getElementById('reset-btn');
+
+  const sharePanel = document.getElementById('share-panel');
+  const shareRowsContainer = document.getElementById('share-rows');
+  const shareForm = document.getElementById('share-form');
+  const shareMessage = document.getElementById('share-message');
+
+  const dbBody = document.getElementById('db-body');
+  const addForm = document.getElementById('add-form');
+  const addIdInput = document.getElementById('add-id');
+  const addWordInput = document.getElementById('add-word');
+  const downloadBtn = document.getElementById('download-btn');
+
+  const SHARE_ROW_COUNT = 10;
+
+  function sortDatabase(){
+    database.sort((a, b) => a.id - b.id);
+  }
+
+  function renderDatabase(){
+    sortDatabase();
+    dbBody.innerHTML = '';
+    if(database.length === 0){
+      const tr = document.createElement('tr');
+      tr.className = 'empty-row';
+      tr.innerHTML = '<td colspan="3">No words yet.</td>';
+      dbBody.appendChild(tr);
+      return;
+    }
+    for(const entry of database){
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + entry.id + '</td>' +
+        '<td>' + entry.word + '</td>' +
+        '<td class="del"><button type="button" data-id="' + entry.id + '">Remove</button></td>';
+      dbBody.appendChild(tr);
+    }
+  }
+
+  function buildShareRows(){
+    shareRowsContainer.innerHTML = '';
+    for(let i = 0; i < SHARE_ROW_COUNT; i++){
+      const row = document.createElement('div');
+      row.className = 'share-row';
+      row.innerHTML =
+        '<span class="row-number">' + (i + 1) + '</span>' +
+        '<label class="word-field">Word<input type="text" class="share-word" autocomplete="off"></label>' +
+        '<label class="dist-field">Distance<input type="number" class="share-distance" step="1"></label>';
+      shareRowsContainer.appendChild(row);
+    }
+  }
+
+  function clearShareRows(){
+    document.querySelectorAll('.share-word').forEach(el => el.value = '');
+    document.querySelectorAll('.share-distance').forEach(el => el.value = '');
+  }
+
+  function generateDatabaseCode(){
+    sortDatabase();
+    const lines = database.map(e => '    { id: ' + e.id + ', word: "' + e.word + '" }').join(',\n');
+    return 'let database = [\n' + lines + '\n  ];';
+  }
+
+  dbBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-id]');
+    if(!btn) return;
+    const id = Number(btn.dataset.id);
+    database = database.filter(entry => entry.id !== id);
+    renderDatabase();
+  });
+
+  addForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = Number(addIdInput.value);
+    const word = addWordInput.value.trim().toLowerCase();
+    if(!word) return;
+    database.push({ id, word });
+    renderDatabase();
+    addForm.reset();
+    addIdInput.focus();
+  });
+
+  setupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const top = topWordInput.value.trim().toLowerCase();
+    const bottom = bottomWordInput.value.trim().toLowerCase();
+
+    sortDatabase();
+    const candidates = database.filter(entry => entry.word > top && entry.word < bottom);
+
+    resultOutput.hidden = true;
+    resultForm.reset();
+    sharePanel.hidden = true;
+    shareMessage.hidden = true;
+    clearShareRows();
+    currentTargetId = null;
+
+    if(candidates.length === 0){
+      currentGuess = null;
+      guessPanel.hidden = true;
+      setupMessage.hidden = false;
+      setupMessage.textContent = 'No word to guess is available.';
+      return;
+    }
+
+    setupMessage.hidden = true;
+
+    // Middle of the alphabetically-sorted candidates, for the best bisection.
+    const midIndex = Math.floor((candidates.length - 1) / 2);
+    currentGuess = candidates[midIndex];
+
+    guideWords.textContent = 'Between "' + top + '" and "' + bottom + '"';
+    guessWordDisplay.textContent = 'Guess this word: ' + currentGuess.word;
+    guessPanel.hidden = false;
+    distanceInput.focus();
+  });
+
+  resultForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!currentGuess) return;
+
+    const n = parseInt(distanceInput.value, 10);
+    if(isNaN(n) || n < 0) return;
+
+    const direction = directionSelect.value; // 'before' or 'after'
+    const guessedId = currentGuess.id;
+    const targetId = direction === 'before' ? guessedId + n : guessedId - n;
+    currentTargetId = targetId;
+
+    targetIdDisplay.textContent = targetId;
+
+    let best = null;
+    let bestDiff = Infinity;
+    for(const entry of database){
+      const diff = Math.abs(entry.id - targetId);
+      if(diff < bestDiff){
+        bestDiff = diff;
+        best = entry;
+      }
+    }
+    bestGuessDisplay.textContent = best ? best.word : '(database is empty)';
+
+    resultOutput.hidden = false;
+    sharePanel.hidden = false;
+    shareMessage.hidden = true;
+  });
+
+  shareForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(currentTargetId === null) return;
+
+    const wordInputs = document.querySelectorAll('.share-word');
+    const distInputs = document.querySelectorAll('.share-distance');
+
+    let addedCount = 0;
+    for(let i = 0; i < SHARE_ROW_COUNT; i++){
+      const word = wordInputs[i].value.trim().toLowerCase();
+      const distStr = distInputs[i].value;
+      if(!word || distStr === '') continue;
+      const dist = parseInt(distStr, 10);
+      if(isNaN(dist)) continue;
+
+      const id = currentTargetId + dist;
+      const alreadyKnown = database.some(entry => entry.word === word);
+      if(!alreadyKnown){
+        database.push({ id, word });
+        addedCount++;
+      }
+    }
+
+    renderDatabase();
+    shareMessage.hidden = false;
+    shareMessage.textContent = addedCount === 1
+      ? '1 new word added to the database.'
+      : addedCount + ' new words added to the database.';
+  });
+
+  resetBtn.addEventListener('click', () => {
+    currentGuess = null;
+    currentTargetId = null;
+    guessPanel.hidden = true;
+    resultOutput.hidden = true;
+    sharePanel.hidden = true;
+    shareMessage.hidden = true;
+    clearShareRows();
+    resultForm.reset();
+    setupForm.reset();
+    setupMessage.hidden = true;
+    topWordInput.focus();
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    const code = generateDatabaseCode();
+    const blob = new Blob([code], { type: 'text/oain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'the-middle-database.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  buildShareRows();
+  renderDatabase();
+</script>
+</body>
+</html>

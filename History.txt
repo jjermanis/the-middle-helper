@@ -1,0 +1,27 @@
+Version 01.01	42 minutes dev	4 minutes CPU	4 minutes test	50 minutes
+
+A few days ago, I discovered an interesting puzzle game called The Middle. It
+is a guessing game. The game has a huge database of words - these are unknown
+to players. There is a word that's chosen as the (secret) answer. At the start
+of the game, you are given one word that is 10,000 words alphabetically before
+the answer. You are given one word that is 10,000 words after the answer. You
+guess in the middle, trying to find that answer. It is fun.
+I will play. But it got me curious: can an app help? The database isn't known.
+But as you guess words, you learn there positions relative to each other.
+With some care, you can grow your own database. As you plan, the app could
+give you advice that could help you find an answer more quickly.
+I created a description of a utility app for this to Claude. It is a utility
+used with that game. In the The Middle Helper, it asks you the top and bottom
+works. It recommends a guess based on the word is the middle (as close as it 
+can). After the game, you can put the words and offsets used during that game.
+This creates a subset of what the game itself has. It has to build slowly. I
+started with one game. From there, I can add more where the words overlap.
+This is useful now. Need to add functionality to improve.
+
+
+TODO: right now, the dictionary is directly in the code. Place it in an
+	external file to make it easier to update.
+TODO: add sanity checking. Does the same word appear with different IDs?
+	Do the numerical and alphabetical orders not match?
+TODO: how big will Known Words (the UI) get? Make it scrollable.
+

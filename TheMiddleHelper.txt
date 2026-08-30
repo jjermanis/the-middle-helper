@@ -1,0 +1,17 @@
+Create a single-page app in a single HTML file with the following requirements:
+- Name: The Middle Helper
+- Goal: Track data from the puzzle game The Middle to be able to provide better help
+- The app has a list of data with two elements: an ID number and a word
+- Words will always be stored lower-case
+- The list is kept in order. They are in ID order. They are also kept in alphabetical order; words will naturally be in alphabetical order
+- To start a game, the user enters the top and bottom words that they were given in the UI. There will be two text fields to enter the top and bottom words. The user will hit enter to continue.
+- The app will search for a word in the list that is between two words in the data. To be clear, the app will search for a word that is alphabetically after the top word and alphabetically before the bottom word.
+- If there is not a word in the database the is between the two words in the game, it will put this on the screen: no word to guess is available. None of the description below will be used - we cannot continue without that word.
+- If there is a word, the screen will say: guess this word X, where X is the word that is between the two words. 
+- It will follow that by asking what the result was from guessing that word. There will a text box for the number of words. There will be a dropdown box with two options: "words before" and "words after". There will be an Enter button on the screen.
+- Now we know the specific ID number for the word. If the dropdown selection was "words before" than the ID is that the ID of the guessed word, plus the number of words before. If the dropdown selection was "words after" than the ID is that of the ID of the guess word, minus the number of words after.
+- Add this to the screen: the ID for this game is Y, where Y is that was just calculated.
+- We will go for the best available guess. Go through the database, and find the value that is closest to the ID for the game. Display this: best available guess is Z, where Z is that word.
+- After getting the best available guess, the user will be prompted to play the game, then share the results. The UI to share the results will have ten lines of code. Each row has two items. The first item is the text for the word. The second item is how far away from the correct answer it is. For the correct answer, this value will be 0. For answers before The Middle, it will be a negative number for how far away it is from The Middle. For answers after The Middle, it will be a positive number for how far away it is from The Middle.
+- The IDs for all those guesses in the game are now calculable and now known. The database should be updated to all the guesses from the game into the database.
+- There will be a button that download the database. The format should be identical to what is in the app source code.
