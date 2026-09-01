@@ -7,8 +7,6 @@ let database = [
     { id: 71738, word: "animate" },
     { id: 72145, word: "another" },
     { id: 72286, word: "antenna" },
-    { id: 81514, word: "aunt" },
-    { id: 81701, word: "attribute" },
     { id: 82257, word: "avenge" },
     { id: 82286, word: "avenue" },
     { id: 84323, word: "band" },
@@ -33,10 +31,13 @@ let database = [
     { id: 127389, word: "crunch" },
     { id: 128374, word: "cure" },
     { id: 129903, word: "dairy" },
-    { id: 136005, word: "dentist" },
     { id: 139701, word: "dime" },
     { id: 139903, word: "dinner" },
     { id: 140604, word: "disaster" },
     { id: 144914, word: "dot" },
-    { id: 149903, word: "efficient" }
+    { id: 145583, word: "dragon" },
+    { id: 145713, word: "drank" },
+    { id: 148133, word: "eat" },
+    { id: 149903, word: "efficient" },
+    { id: 155583, word: "entrance" }
   ];

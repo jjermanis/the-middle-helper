@@ -286,6 +286,7 @@
       <h2>Known words</h2>
       <button type="button" class="secondary small" id="download-btn">Download database</button>
     </div>
+    <p class="message" id="validation-message" hidden></p>
     <table>
       <thead><tr><th>ID</th><th>Word</th><th></th></tr></thead>
       <tbody id="db-body"></tbody>
@@ -337,11 +338,54 @@
   const addIdInput = document.getElementById('add-id');
   const addWordInput = document.getElementById('add-word');
   const downloadBtn = document.getElementById('download-btn');
+  const validationMessage = document.getElementById('validation-message');
 
   const SHARE_ROW_COUNT = 10;
 
   function sortDatabase(){
     database.sort((a, b) => a.id - b.id);
+  }
+
+  function validateDatabase(arr){
+    const issues = [];
+    const seenIds = new Set();
+    const seenWords = new Set();
+
+    for(let i = 0; i < arr.length; i++){
+      const entry = arr[i];
+
+      if(seenIds.has(entry.id)){
+        issues.push('Duplicate ID ' + entry.id + ' ("' + entry.word + '").');
+      }
+      seenIds.add(entry.id);
+
+      if(seenWords.has(entry.word)){
+        issues.push('Duplicate word "' + entry.word + '".');
+      }
+      seenWords.add(entry.word);
+
+      if(i > 0){
+        const prev = arr[i - 1];
+        if(entry.id <= prev.id){
+          issues.push('ID does not increase: "' + prev.word + '" (' + prev.id + ') then "' + entry.word + '" (' + entry.id + ').');
+        }
+        if(entry.word <= prev.word){
+          issues.push('Word not alphabetically ascending: "' + prev.word + '" then "' + entry.word + '".');
+        }
+      }
+    }
+
+    return issues;
+  }
+
+  function showValidationIssues(issues){
+    if(issues.length === 0){
+      validationMessage.hidden = true;
+      validationMessage.textContent = '';
+      return;
+    }
+    validationMessage.hidden = false;
+    validationMessage.textContent = 'Database validation found ' + issues.length + ' issue(s): ' + issues.join(' ');
   }
 
   function renderDatabase(){
@@ -495,6 +539,8 @@
       }
     }
 
+    sortDatabase();
+    showValidationIssues(validateDatabase(database));
     renderDatabase();
     shareMessage.hidden = false;
     shareMessage.textContent = addedCount === 1
@@ -540,6 +586,8 @@
       })
       .then(text => {
         database = new Function(text + '\nreturn database;')();
+        sortDatabase();
+        showValidationIssues(validateDatabase(database));
         renderDatabase();
       })
       .catch(err => {

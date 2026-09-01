@@ -31,8 +31,19 @@ Helper to help, one of the initial words needs to be between across and
 efficient.
 
 
+Version 01.03	8 minutes dev	1 minute CPU	1 minute test	1 hour 15
 
-TODO: add sanity checking. Does the same word appear with different IDs?
-	Do the numerical and alphabetical orders not match?
+I wanted to sanity check the data in the game. The IDs should remain in order.
+The names should be in alphabetical order. Finally, there should be no
+duplicates for the IDs or words. Claude added this.
+With the first running, it found two words out of order. I deleted them.
+I played another game of The Middle and added the data. This also had two 
+words out of order.
+I need to consider a root cause for this and how to address.
+
+
+
+TODO: the data occasionally is generated out of order. Come up with a 
+	theory why.
 TODO: how big will Known Words (the UI) get? Make it scrollable.
 
