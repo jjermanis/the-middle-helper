@@ -306,28 +306,7 @@
 </div>
 
 <script>
-let database = [
-    { id: 86273, word: "beat" },
-    { id: 88182, word: "beside" },
-    { id: 96273, word: "brain" },
-    { id: 97845, word: "brown" },
-    { id: 98164, word: "buck" },
-    { id: 98182, word: "bucket" },
-    { id: 98260, word: "bud" },
-    { id: 99620, word: "butter" },
-    { id: 100000, word: "cable" },
-    { id: 106273, word: "category" },
-    { id: 108182, word: "chalk" },
-    { id: 116005, word: "coin" },
-    { id: 120000, word: "concert" },
-    { id: 125987, word: "crazy" },
-    { id: 125994, word: "creak" },
-    { id: 126005, word: "cream" },
-    { id: 126045, word: "create" },
-    { id: 127389, word: "crunch" },
-    { id: 128374, word: "cure" },
-    { id: 136005, word: "dentist" }
-  ];
+  let database = [];
 
   let currentGuess = null;
   let currentTargetId = null;
@@ -551,7 +530,24 @@ let database = [
   });
 
   buildShareRows();
-  renderDatabase();
+  loadDatabase();
+
+  function loadDatabase(){
+    fetch('the-middle-database.txt?t=' + Date.now())
+      .then(response => {
+        if(!response.ok) throw new Error('File not found');
+        return response.text();
+      })
+      .then(text => {
+        database = new Function(text + '\nreturn database;')();
+        renderDatabase();
+      })
+      .catch(err => {
+        console.error('Could not load the-middle-database.txt:', err);
+        renderDatabase();
+      });
+  }
+
 </script>
 </body>
 </html>

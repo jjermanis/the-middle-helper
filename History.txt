@@ -19,8 +19,19 @@ started with one game. From there, I can add more where the words overlap.
 This is useful now. Need to add functionality to improve.
 
 
-TODO: right now, the dictionary is directly in the code. Place it in an
-	external file to make it easier to update.
+Version 01.02	9 minutes dev	0 minutes CPU	6 minutes test	1 hour 5
+
+Originally the database of words was a declared array. This made the source
+file large. I wanted the array to be in a separate file. The app would then
+use the file to initialize the data. This was quick and easy. Going forward,
+to run the app locally, I need to start a Python local server. I've done this
+for other projects here, it's easy.
+I played a few more rounds the game. The field is expanding. For The Middle
+Helper to help, one of the initial words needs to be between across and
+efficient.
+
+
+
 TODO: add sanity checking. Does the same word appear with different IDs?
 	Do the numerical and alphabetical orders not match?
 TODO: how big will Known Words (the UI) get? Make it scrollable.
