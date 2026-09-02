@@ -42,8 +42,28 @@ words out of order.
 I need to consider a root cause for this and how to address.
 
 
+Version 01.04	0 minutes dev	0 minutes CPU	10 minutes test	1 hour 25
 
-TODO: the data occasionally is generated out of order. Come up with a 
-	theory why.
+I have a theory for why words would get out-of-order in the database. The
+root cause is that UI text says the words at the start that are 10,000 
+words away from  the puzzle's answer... but they really aren't exactly 
+10,000 words away. The game appear to take all the words of the English
+language into the game. Many are esoteric. In this game, rare words are
+never the words at the edges or the actually word to guess. My theory:
+they couldn't have it be exactly 10,000 words away. The keep track of the
+common words, and picks... something, that is far away, but does not 
+need to be exactly 10,000 steps.
+My new way of recording the game is that I do not enter those edge words
+in on every problem. The other guesses, they always return a specific
+number. Maybe that is accurate? Let's see.
+I stored all the games that I did originally, removing those end words.
+Thus far, there have not been any errors. Maybe this does fix the problem?
+Let's see.
+
+
+
 TODO: how big will Known Words (the UI) get? Make it scrollable.
+TODO: create a utility that finds the biggest ID gaps in the DB.
+	This will identify the most helpful areas to focus on 
+	playing in.
 
