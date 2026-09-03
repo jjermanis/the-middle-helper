@@ -162,12 +162,23 @@
     line-height: 1.8;
   }
   #result-output strong{ color: var(--good); }
+  .db-scroll{
+    max-height: 900px;
+    overflow-y: auto;
+    margin-bottom: 18px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
   table{
     width: 100%;
     border-collapse: collapse;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
-    margin-bottom: 18px;
+  }
+  thead th{
+    position: sticky;
+    top: 0;
+    background: var(--card);
   }
   th, td{
     text-align: left;
@@ -287,10 +298,12 @@
       <button type="button" class="secondary small" id="download-btn">Download database</button>
     </div>
     <p class="message" id="validation-message" hidden></p>
-    <table>
-      <thead><tr><th>ID</th><th>Word</th><th></th></tr></thead>
-      <tbody id="db-body"></tbody>
-    </table>
+    <div class="db-scroll">
+      <table>
+        <thead><tr><th>ID</th><th>Word</th><th></th></tr></thead>
+        <tbody id="db-body"></tbody>
+      </table>
+    </div>
     <form id="add-form">
       <div class="field-row">
         <label>ID

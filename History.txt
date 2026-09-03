@@ -1,4 +1,4 @@
-Version 01.01	42 minutes dev	4 minutes CPU	4 minutes test	50 minutes
+Version 01.01	42 minutes dev	4 minutes CPU	4 minutes test		50 minutes
 
 A few days ago, I discovered an interesting puzzle game called The Middle. It
 is a guessing game. The game has a huge database of words - these are unknown
@@ -19,7 +19,7 @@ started with one game. From there, I can add more where the words overlap.
 This is useful now. Need to add functionality to improve.
 
 
-Version 01.02	9 minutes dev	0 minutes CPU	6 minutes test	1 hour 5
+Version 01.02	9 minutes dev	0 minutes CPU	6 minutes test		1 hour 5
 
 Originally the database of words was a declared array. This made the source
 file large. I wanted the array to be in a separate file. The app would then
@@ -31,7 +31,7 @@ Helper to help, one of the initial words needs to be between across and
 efficient.
 
 
-Version 01.03	8 minutes dev	1 minute CPU	1 minute test	1 hour 15
+Version 01.03	8 minutes dev	1 minute CPU	1 minute test		1 hour 15
 
 I wanted to sanity check the data in the game. The IDs should remain in order.
 The names should be in alphabetical order. Finally, there should be no
@@ -42,7 +42,7 @@ words out of order.
 I need to consider a root cause for this and how to address.
 
 
-Version 01.04	0 minutes dev	0 minutes CPU	10 minutes test	1 hour 25
+Version 01.04	0 minutes dev	0 minutes CPU	10 minutes test		1 hour 25
 
 I have a theory for why words would get out-of-order in the database. The
 root cause is that UI text says the words at the start that are 10,000 
@@ -61,9 +61,24 @@ Thus far, there have not been any errors. Maybe this does fix the problem?
 Let's see.
 
 
+Version 01.05	4 minutes dev	0 minutes CPU	11 minutes test		1 hour 40
+
+As the database getting large, it was a touch inconvenient: it would
+show the whole list. Put it in a scroll box, limiting it to 30-ish
+skills at a time.
+Played some more games. No data errors... yet. A hint that there were 
+some falsities in the initial words. Here are the starts from 2 puzzles:
+6/26: Usage and Zero
+7/22: Vase and Yourself
+The July puzzle is completely within the June one. No way each range
+is exactly 10k from the center.
+
+
 
 TODO: how big will Known Words (the UI) get? Make it scrollable.
+TODO: checking the order on the input would also prevent errors.
 TODO: create a utility that finds the biggest ID gaps in the DB.
 	This will identify the most helpful areas to focus on 
 	playing in.
+
 
