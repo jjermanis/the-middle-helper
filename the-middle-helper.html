@@ -207,6 +207,40 @@
     font-style: italic;
     font-family: 'Spectral', serif;
   }
+  .modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(36,34,29,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-overlay[hidden]{
+    display: none;
+  }
+  .modal-box{
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 480px;
+    width: 90%;
+  }
+  .modal-box h3{
+    margin: 0 0 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .modal-box p{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+  }
   .share-row{
     display: flex;
     gap: 12px;
@@ -319,6 +353,14 @@
 
 </div>
 
+<div class="modal-overlay" id="validation-modal" hidden>
+  <div class="modal-box">
+    <h3>Cannot save results</h3>
+    <p id="modal-message"></p>
+    <button type="button" id="modal-close-btn">OK</button>
+  </div>
+</div>
+
 <script>
   let database = [];
 
@@ -352,6 +394,18 @@
   const addWordInput = document.getElementById('add-word');
   const downloadBtn = document.getElementById('download-btn');
   const validationMessage = document.getElementById('validation-message');
+  const validationModal = document.getElementById('validation-modal');
+  const modalMessage = document.getElementById('modal-message');
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+
+  modalCloseBtn.addEventListener('click', () => {
+    validationModal.hidden = true;
+  });
+
+  function showValidationModal(issues){
+    modalMessage.textContent = issues.join(' ');
+    validationModal.hidden = false;
+  }
 
   const SHARE_ROW_COUNT = 10;
 
@@ -536,7 +590,7 @@
     const wordInputs = document.querySelectorAll('.share-word');
     const distInputs = document.querySelectorAll('.share-distance');
 
-    let addedCount = 0;
+    const entries = [];
     for(let i = 0; i < SHARE_ROW_COUNT; i++){
       const word = wordInputs[i].value.trim().toLowerCase();
       const distStr = distInputs[i].value;
@@ -544,10 +598,21 @@
       const dist = parseInt(distStr, 10);
       if(isNaN(dist)) continue;
 
-      const id = currentTargetId + dist;
-      const alreadyKnown = database.some(entry => entry.word === word);
+      entries.push({ id: currentTargetId + dist, word: word });
+    }
+
+    entries.sort((a, b) => a.id - b.id);
+    const issues = validateDatabase(entries);
+    if(issues.length > 0){
+      showValidationModal(issues);
+      return;
+    }
+
+    let addedCount = 0;
+    for(const entry of entries){
+      const alreadyKnown = database.some(existing => existing.word === entry.word);
       if(!alreadyKnown){
-        database.push({ id, word });
+        database.push(entry);
         addedCount++;
       }
     }
@@ -577,7 +642,7 @@
 
   downloadBtn.addEventListener('click', () => {
     const code = generateDatabaseCode();
-    const blob = new Blob([code], { type: 'text/oain' });
+    const blob = new Blob([code], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

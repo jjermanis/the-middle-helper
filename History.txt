@@ -74,9 +74,19 @@ The July puzzle is completely within the June one. No way each range
 is exactly 10k from the center.
 
 
+Version 01.06	11 minutes dev	2 minute CPU	2 minutes test		1 hour 55
 
-TODO: how big will Known Words (the UI) get? Make it scrollable.
-TODO: checking the order on the input would also prevent errors.
+I got an ordering error in one of the games. I noticed it was because
+I typed it in wrong. It's good, it was caught. But for mistakes typing,
+we shouldn't allow it to be saved. For these errors, when we know that
+it was an error typing, I wanted to add a modal dialog showing the error.
+It would not save until the error was fixed.
+This is implemented. I did some testing with a game to confirm.
+While working on this error, Claude found a totally different error in 
+the code. Trivial - I fixes that too.
+
+
+
 TODO: create a utility that finds the biggest ID gaps in the DB.
 	This will identify the most helpful areas to focus on 
 	playing in.
