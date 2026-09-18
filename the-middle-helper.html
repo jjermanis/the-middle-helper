@@ -351,6 +351,14 @@
     </form>
   </section>
 
+  <section class="panel" id="gaps-panel">
+    <h2>Largest gaps</h2>
+    <table>
+      <thead><tr><th>Gap</th><th>Before</th><th>After</th></tr></thead>
+      <tbody id="gaps-body"></tbody>
+    </table>
+  </section>
+
 </div>
 
 <div class="modal-overlay" id="validation-modal" hidden>
@@ -393,6 +401,7 @@
   const addIdInput = document.getElementById('add-id');
   const addWordInput = document.getElementById('add-word');
   const downloadBtn = document.getElementById('download-btn');
+  const gapsBody = document.getElementById('gaps-body');
   const validationMessage = document.getElementById('validation-message');
   const validationModal = document.getElementById('validation-modal');
   const modalMessage = document.getElementById('modal-message');
@@ -472,6 +481,35 @@
         '<td>' + entry.word + '</td>' +
         '<td class="del"><button type="button" data-id="' + entry.id + '">Remove</button></td>';
       dbBody.appendChild(tr);
+    }
+    renderGaps();
+  }
+
+  function renderGaps(){
+    const gaps = [];
+    for(let i = 0; i < database.length - 1; i++){
+      const a = database[i];
+      const b = database[i + 1];
+      gaps.push({ diff: b.id - a.id, before: a.word, after: b.word });
+    }
+    gaps.sort((x, y) => y.diff - x.diff);
+    const top5 = gaps.slice(0, 5);
+
+    gapsBody.innerHTML = '';
+    if(top5.length === 0){
+      const tr = document.createElement('tr');
+      tr.className = 'empty-row';
+      tr.innerHTML = '<td colspan="3">Not enough words yet.</td>';
+      gapsBody.appendChild(tr);
+      return;
+    }
+    for(const gap of top5){
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + gap.diff + '</td>' +
+        '<td>' + gap.before + '</td>' +
+        '<td>' + gap.after + '</td>';
+      gapsBody.appendChild(tr);
     }
   }
 

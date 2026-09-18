@@ -86,9 +86,11 @@ While working on this error, Claude found a totally different error in
 the code. Trivial - I fixes that too.
 
 
+Version 01.07	16 minutes dev	0 minutes CPU	4 minutes test		2 hours 15
 
-TODO: create a utility that finds the biggest ID gaps in the DB.
-	This will identify the most helpful areas to focus on 
-	playing in.
+I wanted to add a nice utility. It would find the biggest gaps in
+the DB. This would identify the most helpful areas to focus on in
+the game. Claude made this change on the first attempt.
+Played some more games to improve the data.
 
 
