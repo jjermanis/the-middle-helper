@@ -94,3 +94,8 @@ the game. Claude made this change on the first attempt.
 Played some more games to improve the data.
 
 
+Version 01.08	10 minutes dev	0 minutes CPU	0 minutes test		2 hours 25
+
+Update data for the areas needing the most help. 5 games worth.
+
+
