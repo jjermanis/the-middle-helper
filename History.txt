@@ -114,5 +114,17 @@ support for switching the database files. I want to confirm the new DB
 works first.
 
 
+Version 01.09	25 minutes dev	0 minutes CPU	0 minutes test		3 hours 5
 
+As it stands now, I'm unlikely to add the change to support multiple
+libraries automatically. It is temporary in nature, the changes are
+fairly substantial, and there are some side effects with saving 
+multiple files. Dealing with this manually, until the gaps are filled,
+is easy enough.
+In the meantime, I've changed the database filenames to: 
+the-middle-database-1.txt and the-middle-database-2.txt
+It will make it easy to use, and to track the changes. I will rename
+the database to use to the original name of the-middle-database.txt
+as needed.
+I solve 8 puzzles, extending handling puzzles out to the word "oven".
 
