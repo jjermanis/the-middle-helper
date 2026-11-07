@@ -94,8 +94,25 @@ the game. Claude made this change on the first attempt.
 Played some more games to improve the data.
 
 
-Version 01.08	10 minutes dev	0 minutes CPU	0 minutes test		2 hours 25
+Version 01.08	18 minutes dev	2 minutes CPU	5 minutes test		2 hours 40
 
-Update data for the areas needing the most help. 5 games worth.
+I have been playing for several months. There remains a gap in all the
+words that are used. There are no words that have been used between
+Indent and Inspector. Because that, it is impossible to include any
+words after Indent alphabetically: there is no way to map that into the
+game. I was hope one would occur, but like I say, a few months passed.
+To deal with this in the interim, I will play with two separate database
+files. I will use the correct database, depending on the word that I
+play. I started, as I did at the very beginning, with a manual game:
+Inspector and Logic. I played this, and used the initial data to 
+create a new DB file. I will start building that, using that different
+database within the game.
+I do have the code to move support for this into the game itself, where
+it will manage the two DBs. I will try it in the manual database file
+switching for now. It is actually quite a few lines of code to get auto
+support for switching the database files. I want to confirm the new DB
+works first.
+
+
 
 
