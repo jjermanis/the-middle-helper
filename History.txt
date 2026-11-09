@@ -126,5 +126,14 @@ the-middle-database-1.txt and the-middle-database-2.txt
 It will make it easy to use, and to track the changes. I will rename
 the database to use to the original name of the-middle-database.txt
 as needed.
-I solve 8 puzzles, extending handling puzzles out to the word "oven".
+I solved 8 puzzles, extending handling puzzles out to the word "oven".
+
+
+Version 01.10	25 minutes dev	0 minutes CPU	0 minutes test		3 hours 30
+
+I found a second gap in the game: at UN, between unhealthy and unknown.
+I will create a third DB next. That will be the last DB that I'll need:
+the next group extends to zipper.
+I solved 8 puzzles, extending handling puzzles out to the word "unguard".
+
 
