@@ -137,3 +137,16 @@ the next group extends to zipper.
 I solved 8 puzzles, extending handling puzzles out to the word "unguard".
 
 
+Version 01.11	20 minutes dev	0 minutes CPU	0 minutes test		3 hours 50
+
+I had a wide 2nd DB. There were some serious gaps identified by the Large
+Gaps. I played 6 games - no gap is larger that 4k words.
+
+
+
+TODO Create 3rd DB for the UN to the end
+TODO Create a simple mode for release that only helps with the
+	game. It will not have the tools I use - I'll keep that
+	separate
+TODO When going to deploy, merge into a single database file
+
