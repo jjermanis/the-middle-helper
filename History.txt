@@ -143,6 +143,13 @@ I had a wide 2nd DB. There were some serious gaps identified by the Large
 Gaps. I played 6 games - no gap is larger that 4k words.
 
 
+Version 01.12	15 minutes dev	0 minutes CPU	0 minutes test		4 hours 5
+
+Amazing timing. Two days ago, with over 4 months of playing, I found a gap
+at UN. That gap was covered today. I played five games: the last word is
+"zip". I am confident I will not need to extent that one.
+
+
 
 TODO Create 3rd DB for the UN to the end
 TODO Create a simple mode for release that only helps with the
