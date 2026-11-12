@@ -99,5 +99,10 @@ let database = [
     { id: 183025, word: "hose" },
     { id: 183614, word: "hug" },
     { id: 186609, word: "ill" },
-    { id: 189419, word: "indent" }
+    { id: 189419, word: "indent" },
+    { id: 192148, word: "intact" },
+    { id: 193528, word: "into" },
+    { id: 194563, word: "iron" },
+    { id: 195850, word: "jam" },
+    { id: 199110, word: "keyboard" }
   ];
