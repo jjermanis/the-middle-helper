@@ -150,10 +150,35 @@ at UN. That gap was covered today. I played five games: the last word is
 "zip". I am confident I will not need to extent that one.
 
 
+Version 01.14	19 minutes dev	2 minutes CPU	4 minutes test		4 hours 30
 
-TODO Create 3rd DB for the UN to the end
+The timing got more amazing, truly. One day after the last one, I found
+the other gap at IN. I had played 2 games normally. I played one more 
+game to cover the gap within IN. After that, I merged to the 2 DBs into
+a single DB. I had to adjust the IDs (it was impossible to know what the
+gap was until connected) and merge into a single file. I asked Claude to
+do substantial verification, as did I.
+I am happy that after this time, this now plays normally in a single DB
+file.
+
+
+Version 01.15	25 minutes dev	0 minutes CPU	0 minutes test		4 hours 55
+
+Working on the Largest Gaps reported. Removed 7 via games. Continuing
+to work: goal all gaps under 3k before first release.
+
+
+
 TODO Create a simple mode for release that only helps with the
 	game. It will not have the tools I use - I'll keep that
 	separate
-TODO When going to deploy, merge into a single database file
+TODO The top says WORK IN PROGRESS. Why? Let's ask and see.
+TODO Under the title is says "Guide words for a puzzle played 
+	one bound at a time." Kinda meh. Why?
+TODO If there is an exact match, the app knows it's the answer.
+	Signal when the ID is known.
+TODO The two separate DBs are no longer needed. Keep them for
+	a bit, just in case. Maybe remove in December?
+
+
 
