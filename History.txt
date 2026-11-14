@@ -176,13 +176,26 @@ be within at most 1,500 words.
 Next will going through the TODO list for the initial release.
 
 
+Version 01.16	19 minutes dev	1 minutes CPU	5 minute test		5 hours 35
 
-TODO Create a simple mode for release that only helps with the
-	game. It will not have the tools I use - I'll keep that
-	separate
-TODO The top says WORK IN PROGRESS. Why? Let's ask and see.
-TODO Under the title is says "Guide words for a puzzle played 
-	one bound at a time." Kinda meh. Why?
+There were two strings at the top that I didn't think needed to be there.
+These were Claude's decisions. One was at the very top it had "Work In
+Progress". That was fine earlier; it isn't needed now. Below the title
+it read "Guide words for a puzzle played one bound at a time." A Claude
+attempt at UI decoration. I didn't like it. I deleted both, and removed
+the unused CSS after that.
+The next thing as I wanted to create a version of this app for people
+using on the website. For multiple reason, we do not want users to
+update the database. We just want them to be able to check games. I
+asked Claude about this, with guidelines of what to hide when ran on
+the web. These directions were easy to implement and it works well.
+I asked about security. It had a good observation. If the DB on the
+server was edited (it shouldn't be, but be safe) it could run
+anything. The code should be in the HTML; a JavaScript file is
+there for the data. I created an item to track this security move.
+
+
+
 TODO If there is an exact match, the app knows it's the answer.
 	Signal when the ID is known.
 TODO The two separate DBs are no longer needed. Keep them for
@@ -190,4 +203,15 @@ TODO The two separate DBs are no longer needed. Keep them for
 TODO Do the MIT License
 TODO Write up the README - go into detail on the thinking behind
 	this.
+TODO Claude made a good security. Let's follow this:
+	The app loads the database file with new Function(...), 
+	which runs the file’s contents as JavaScript. That’s fine while 
+	only you control the file. But if the file on the server were 
+	ever altered, for example through a compromised hosting account 
+	or a bad deploy, whatever code was in it would run in every 
+	visitor’s browser. The safer approach is to parse the file as 
+	data, with a regex that pulls out the { id, word } entries and 
+	never executes it. It keeps your file format identical. I can 
+	show you that edit if you’d like.
+
 

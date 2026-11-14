@@ -36,24 +36,10 @@
     padding-bottom: 18px;
     margin-bottom: 32px;
   }
-  .eyebrow{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin: 0 0 6px;
-    text-transform: uppercase;
-  }
   h1{
     font-size: 32px;
     font-weight: 600;
-    margin: 0 0 6px;
-  }
-  .tagline{
     margin: 0;
-    color: var(--ink-soft);
-    font-style: italic;
-    font-size: 15px;
   }
   .panel{
     background: var(--card);
@@ -267,9 +253,7 @@
 <div class="page">
 
   <header>
-    <p class="eyebrow">Work in progress</p>
     <h1>The Middle Helper</h1>
-    <p class="tagline">Guide words for a puzzle played one bound at a time.</p>
   </header>
 
   <section class="panel" id="setup-panel">
@@ -372,6 +356,9 @@
 <script>
   let database = [];
 
+  // true = analysis UI (local use); false = public players only.
+  const inAnalysisMode = true;
+
   let currentGuess = null;
   let currentTargetId = null;
 
@@ -417,6 +404,13 @@
   }
 
   const SHARE_ROW_COUNT = 10;
+
+  // Public mode: take the analysis UI out of the page entirely.
+  if(!inAnalysisMode){
+    ['share-panel', 'db-panel', 'gaps-panel', 'validation-modal'].forEach(id => {
+      document.getElementById(id).remove();
+    });
+  }
 
   function sortDatabase(){
     database.sort((a, b) => a.id - b.id);
