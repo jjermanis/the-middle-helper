@@ -292,7 +292,7 @@
 
     <div id="result-output" hidden>
       <p>The ID for this game is <strong id="target-id-display"></strong>.</p>
-      <p>Best available guess is <strong id="best-guess-display"></strong>.</p>
+      <p><span id="best-guess-label">Best available guess is</span> <strong id="best-guess-display"></strong>.</p>
     </div>
 
     <p style="margin-top:18px;">
@@ -376,6 +376,7 @@
   const resultOutput = document.getElementById('result-output');
   const targetIdDisplay = document.getElementById('target-id-display');
   const bestGuessDisplay = document.getElementById('best-guess-display');
+  const bestGuessLabel = document.getElementById('best-guess-label');
   const resetBtn = document.getElementById('reset-btn');
 
   const sharePanel = document.getElementById('share-panel');
@@ -608,6 +609,9 @@
         best = entry;
       }
     }
+    bestGuessLabel.textContent = (best && bestDiff === 0)
+      ? 'It looks like the answer is'
+      : 'Best available guess is';
     bestGuessDisplay.textContent = best ? best.word : '(database is empty)';
 
     resultOutput.hidden = false;
@@ -688,6 +692,23 @@
   buildShareRows();
   loadDatabase();
 
+  // Reads the database file as plain text. It is never executed.
+  function parseDatabaseText(text){
+    const entryPattern = /\{\s*id:\s*(-?\d+)\s*,\s*word:\s*"([a-z]+)"\s*\}/g;
+    const parsed = [];
+    let match;
+    while((match = entryPattern.exec(text)) !== null){
+      parsed.push({ id: parseInt(match[1], 10), word: match[2] });
+    }
+    // Every "id:" in the file must have parsed cleanly; otherwise fail loudly.
+    const expected = (text.match(/\bid:/g) || []).length;
+    if(parsed.length !== expected){
+      throw new Error('Database file has ' + expected + ' entries but only ' + parsed.length + ' could be read.');
+    }
+    return parsed;
+  }
+
+
   function loadDatabase(){
     fetch('the-middle-database.txt?t=' + Date.now())
       .then(response => {
@@ -695,7 +716,7 @@
         return response.text();
       })
       .then(text => {
-        database = new Function(text + '\nreturn database;')();
+        database = parseDatabaseText(text);
         sortDatabase();
         showValidationIssues(validateDatabase(database));
         renderDatabase();

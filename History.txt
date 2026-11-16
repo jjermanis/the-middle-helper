@@ -176,7 +176,7 @@ be within at most 1,500 words.
 Next will going through the TODO list for the initial release.
 
 
-Version 01.16	19 minutes dev	1 minutes CPU	5 minute test		5 hours 35
+Version 01.16	19 minutes dev	1 minute CPU	5 minutes test		5 hours 35
 
 There were two strings at the top that I didn't think needed to be there.
 These were Claude's decisions. One was at the very top it had "Work In
@@ -195,23 +195,26 @@ anything. The code should be in the HTML; a JavaScript file is
 there for the data. I created an item to track this security move.
 
 
+Version 01.17	11 minutes dev	1 minute CPU	3 minutes test		5 hours 50
 
-TODO If there is an exact match, the app knows it's the answer.
-	Signal when the ID is known.
+From the last version, added the code to read the database, not just 
+execute the JavaScript file within the database. Probably not 
+necessary; good practice that was quick and easy.
+One of the final function changes for this person was a change in
+wording. After you made your first guess (to allow the app to 
+calculate the ID of the answer), it will say "Best available guess
+is XXX." But it is possible that the answer is in the database, and
+it is know. The change was made to say "It looks like the answer is
+XXX." when that projected number is in the database. This was also
+quick and easy.
+
+
+
 TODO The two separate DBs are no longer needed. Keep them for
 	a bit, just in case. Maybe remove in December?
 TODO Do the MIT License
 TODO Write up the README - go into detail on the thinking behind
 	this.
-TODO Claude made a good security. Let's follow this:
-	The app loads the database file with new Function(...), 
-	which runs the file’s contents as JavaScript. That’s fine while 
-	only you control the file. But if the file on the server were 
-	ever altered, for example through a compromised hosting account 
-	or a bad deploy, whatever code was in it would run in every 
-	visitor’s browser. The safer approach is to parse the file as 
-	data, with a regex that pulls out the { id, word } entries and 
-	never executes it. It keeps your file format identical. I can 
-	show you that edit if you’d like.
+
 
 

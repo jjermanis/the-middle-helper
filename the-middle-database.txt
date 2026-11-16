@@ -189,6 +189,7 @@ let database = [
     { id: 279139, word: "rock" },
     { id: 279227, word: "rodent" },
     { id: 281030, word: "run" },
+    { id: 281778, word: "safe" },
     { id: 282729, word: "sand" },
     { id: 283905, word: "saw" },
     { id: 284388, word: "scar" },
