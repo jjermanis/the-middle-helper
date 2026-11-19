@@ -247,6 +247,24 @@
     gap: 10px;
     margin-bottom: 16px;
   }
+
+  /* License MIT used in this file */
+  #license {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    font-size: 12px;
+    opacity: 0.5;
+  }
+  #license a {
+    color: inherit;
+    text-decoration: none;
+  }
+  #license a:hover {
+    text-decoration: underline;
+  }
+  /* License */
+
 </style>
 </head>
 <body>
@@ -353,11 +371,15 @@
   </div>
 </div>
 
+<div id="license">
+  <a href="../../LICENSE.txt">MIT License</a>
+</div>
+
 <script>
   let database = [];
 
   // true = analysis UI (local use); false = public players only.
-  const inAnalysisMode = true;
+  const inAnalysisMode = false;
 
   let currentGuess = null;
   let currentTargetId = null;

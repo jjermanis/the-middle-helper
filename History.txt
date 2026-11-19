@@ -209,12 +209,16 @@ XXX." when that projected number is in the database. This was also
 quick and easy.
 
 
+Version 01.18	4 minutes dev	0 minute CPU	1 minute test		5 hours 55
+
+Wrote up the README.
+Implemented the MIT License. New location for that one - it's in a 
+different location in so many other files, but this new one is clearly
+the right choice.
+
+
 
 TODO The two separate DBs are no longer needed. Keep them for
 	a bit, just in case. Maybe remove in December?
-TODO Do the MIT License
-TODO Write up the README - go into detail on the thinking behind
-	this.
-
 
 
