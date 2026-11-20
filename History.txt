@@ -217,6 +217,16 @@ different location in so many other files, but this new one is clearly
 the right choice.
 
 
+Version 1 was published with 01.18 on 11/17/26
+
+
+Version 02.01	20 minutes dev	0 minutes CPU	0 minutes test		6 hours 15
+
+
+The current goal for this release is to get all gaps below 2k.
+Removed 5 via games. 
+
+
 
 TODO The two separate DBs are no longer needed. Keep them for
 	a bit, just in case. Maybe remove in December?
