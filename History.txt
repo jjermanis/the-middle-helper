@@ -222,9 +222,13 @@ Version 1 was published with 01.18 on 11/17/26
 
 Version 02.01	20 minutes dev	0 minutes CPU	0 minutes test		6 hours 15
 
-
 The current goal for this release is to get all gaps below 2k.
 Removed 5 via games. 
+
+
+Version 02.02	40 minutes dev	0 minutes CPU	0 minutes test		6 hours 55
+
+Played 9 games over a few days. All gaps are below 2.5k.
 
 
 
